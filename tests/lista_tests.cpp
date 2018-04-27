@@ -20,7 +20,7 @@ TEST(lista_test, test_agregar_un_elemento_adelante) {
 
     EXPECT_EQ(l.longitud(), 1);
 
-    std::cout << "SOBREVIVI HASTA ACA" << std::endl;
+    //std::cout << "SOBREVIVI HASTA ACA" << std::endl;
 
     EXPECT_EQ(l.iesimo(0), 42);
 }

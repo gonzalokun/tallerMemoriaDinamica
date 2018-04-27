@@ -54,8 +54,6 @@ Lista<T>& Lista<T>::operator=(const Lista<T>& l) {
         agregarAtras(l.iesimo(i));
     }
 
-    std::cout << "LA LONGITUD DE LA NUEVA LISTA ES: " << _longitud << std::endl;
-
     return *this;
 }
 
@@ -63,18 +61,11 @@ template <typename T>
 void Lista<T>::agregarAdelante(const T& elem) {
     //Agrega un elemento al principio de la lista
 
-    //Creo el nuevo nodo
+    //Creo el nuevo nodocon el valor elem asignado
     Nodo* nuevoElem = new Nodo(elem);
-
-    //Le asigno el nuevo valor al nodo
-    //nuevoElem->valor = elem;
-
-    //std::cout << "VALOR DEl NUEVO NODO: " << nuevoElem->valor << std::endl;
 
     //Si la lista no tiene elementos
     if(_longitud == 0) {
-        std::cout << "SE AGREGA EL PRIMER ELEMENTO A LA LISTA" << std::endl;
-
         //Apunto el principio y el fin de la lista al nuevo elemento (ya que solo hay un elemento)
         _principio = nuevoElem;
         _fin = nuevoElem;
@@ -98,11 +89,8 @@ template <typename T>
 void Lista<T>::agregarAtras(const T& elem) {
     //Agrega un elemento al final de la lista
 
-    //Creo el nuevo nodo
+    //Creo el nuevo nodo con el valor elem asignado
     Nodo* nuevoElem = new Nodo(elem);
-
-    //Le asigno el nuevo valor al nodo
-    //nuevoElem->valor = elem;
 
     //Si el primer elemento de la lista es nulo, entonces es nueva
     if(_principio == nullptr) {
@@ -128,24 +116,25 @@ void Lista<T>::agregarAtras(const T& elem) {
 
 template <typename T>
 int Lista<T>::longitud() const {
+    //La longitud se va calculando a medida que se llena y se vacía la lista
+    //Por lo tanto acá solo devuelvo la variable de longitud
     return _longitud;
 }
 
 template <typename T>
 const T& Lista<T>::iesimo(Nat i) const {
-    //Hay que devolver el i esimo elemento de la lista
-    //Ahora, para optimizar, si el elemento que nos piden esta en una posición mayor a la mitad del largo
-    //nos convendria recorrer la lista desde el final en lugar del principio
+    //Hay que devolver una referencia inmutable al i esimo elemento de la lista
+    //Ahora, para optimizar, si el elemento que nos piden esta en una posición
+    //mayor a la mitad del largo nos convendria recorrer la lista desde el final
+    //en lugar del principio, asi encontrariamos el elemento en menos pasos que
+    //si siempre la buscaramos desde el principio
 
-    std::cout << "ENTRE AL iesimo CONST" << std::endl;
-
-    //T valorDeseado;
+    //En cualquiera de los dos casos anteriores, muevo este puntero hasta llegar
+    //al valor que quiero devolver
     Nodo* nodoActual;
 
     if(i > (_longitud/2)){
         //Hay que recorrerlo desde el final
-
-        std::cout << "RECORRO DESDE EL FINAL" << std::endl;
 
         nodoActual = _fin;
 
@@ -153,36 +142,19 @@ const T& Lista<T>::iesimo(Nat i) const {
             nodoActual = nodoActual->anterior;
         }
 
-        std::cout << "ANTES DE ASIGNAR" << std::endl;
-        std::cout << "VALOR A ASIGNAR: " << nodoActual->valor << std::endl;
-        std::cout << "DESPUES DE ASIGNAR (NO MORI :) )" << std::endl;
-
-        //valorDeseado = nodoActual->valor;
     }
 
     else{
         //Hay que recorrerlo desde el principio
 
-        std::cout << "RECORRO DESDE EL PRINCIPIO" << std::endl;
-
         nodoActual = _principio;
 
         for(int pos = 0; pos < i; pos++){
-            std::cout << "VALOR DE POS: " << pos << std::endl;
             nodoActual = nodoActual->siguiente;
         }
 
-        std::cout << "ANTES DE ASIGNAR" << std::endl;
-        std::cout << "VALOR DEL PUNTERO ANTES DE ASIGNAR: " << nodoActual->valor << std::endl;
-        std::cout << "DESPUES DE ASIGNAR (NO MORI :) )" << std::endl;
-
-        //valorDeseado = nodoActual->valor;
     }
 
-    //std::cout << "EL VALOR DESEADO ES " << valorDeseado << std::endl;
-    std::cout << "VALOR DEL PUNTERO NODOACTUAL: " << nodoActual->valor << std::endl;
-
-    //return valorDeseado;
     return nodoActual->valor;
 }
 
@@ -190,7 +162,7 @@ template  <typename T>
 typename Lista<T>::Nodo* Lista<T>::_iesimoNodo(Nat i) {
     Nodo* punteroDeseado = nullptr;
 
-    //Usamos la forma de recorrer la lista que usamos en iesimo
+    //Usamos la forma de recorrer la lista que usamos en iesimo (en esa función está la explicación)
 
     if(i > (_longitud/2)){
         //Hay que recorrerlo desde el final
@@ -220,8 +192,6 @@ typename Lista<T>::Nodo* Lista<T>::_iesimoNodo(Nat i) {
 
     }
 
-    //
-
     return punteroDeseado;
 }
 
@@ -229,9 +199,11 @@ template <typename T>
 void Lista<T>::eliminar(Nat i) {
     //Elimina el iesimo elemento de la lista
 
-    //Si la longitud es 0 no hacemos nada
+    //Si la longitud es 0 no hacemos nada, ya que no hay elementos para borrar
     if(_longitud == 0)
         return;
+
+    //A partir de aca hay por lo menos un elemento en la lista
 
     Nodo* nodoAEliminar = _iesimoNodo(i);
 
@@ -297,17 +269,12 @@ void Lista<T>::eliminar(Nat i) {
 
 template <typename T>
 T& Lista<T>::iesimo(Nat i) {
-    //Por ahora va a ser un copy-paste de la anterior
+    //Esta funcion es exactamente igual que la otra iesimo
 
-    std::cout << "ENTRE AL iesimo NO CONST" << std::endl;
-
-    //T valorDeseado;
     Nodo* nodoActual;
 
     if(i > (_longitud/2)){
         //Hay que recorrerlo desde el final
-
-        std::cout << "RECORRO DESDE EL FINAL" << std::endl;
 
         nodoActual = _fin;
 
@@ -315,40 +282,22 @@ T& Lista<T>::iesimo(Nat i) {
             nodoActual = nodoActual->anterior;
         }
 
-        std::cout << "ANTES DE ASIGNAR" << std::endl;
-        std::cout << "VALOR A ASIGNAR: " << nodoActual->valor << std::endl;
-        std::cout << "DESPUES DE ASIGNAR (NO MORI :) )" << std::endl;
-
-        //valorDeseado = nodoActual->valor;
     }
 
     else{
         //Hay que recorrerlo desde el principio
 
-        std::cout << "RECORRO DESDE EL PRINCIPIO" << std::endl;
-
         nodoActual = _principio;
 
         for(int pos = 0; pos < i; pos++){
-            std::cout << "VALOR DE POS: " << pos << std::endl;
             nodoActual = nodoActual->siguiente;
         }
 
-        std::cout << "ANTES DE ASIGNAR" << std::endl;
-        std::cout << "VALOR DEL PUNTERO ANTES DE ASIGNAR: " << nodoActual->valor << std::endl;
-        std::cout << "DESPUES DE ASIGNAR (NO MORI :) )" << std::endl;
-
-        //valorDeseado = nodoActual->valor;
     }
 
-    //std::cout << "EL VALOR DESEADO ES " << valorDeseado << std::endl;
-    std::cout << "VALOR DEL PUNTERO NODOACTUAL: " << nodoActual->valor << std::endl;
-
-    //return valorDeseado;
     return nodoActual->valor;
 }
 
-//Opcional !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 template <typename T>
 void Lista<T>::mostrar(std::ostream& o) {
 	//Imprime la lista en el siguiente formato:
@@ -380,6 +329,7 @@ void Lista<T>::mostrar(std::ostream& o) {
 
     listaParaMostrar = conversor.str();
 
+    //Limpio el conversor
     conversor.str("");
     conversor.clear();
 
