@@ -188,3 +188,23 @@ TEST(lista_test, test_lista_elem_complejo) {
     l.agregarAdelante(p);
     l.agregarAdelante(punto2d(1,1));
 }
+
+TEST(lista_test, te_muestro_la_lista){
+    Lista<int> l;
+
+    std::cout << "AHORA LA MUESTRO SIN ELEMENTOS: " << std::endl;
+    l.mostrar(std::cout);
+
+    l.agregarAtras(1);
+    l.agregarAtras(2);
+    l.agregarAtras(3);
+
+    std::cout << "AHORA LA MUESTRO CON 3 ELEMENTOS: " << std::endl;
+    l.mostrar(std::cout);
+
+    l.agregarAdelante(2);
+    l.agregarAdelante(3);
+
+    std::cout << "AHORA LA MUESTRO CON 5 ELEMENTOS: " << std::endl;
+    l.mostrar(std::cout);
+}

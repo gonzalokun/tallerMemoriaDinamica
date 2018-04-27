@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -15,6 +15,8 @@ Lista.hpp
 ../src/Lista.hpp
 Lista.h
 ../src/Lista.h
+iostream
+-
 
 ../tests/google-test/include/gtest/gtest-death-test.h
 gtest/internal/gtest-death-test-internal.h

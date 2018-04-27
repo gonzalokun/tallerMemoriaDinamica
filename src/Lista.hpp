@@ -1,4 +1,5 @@
 #include "Lista.h"
+#include <iostream>
 
 template <typename T>
 Lista<T>::Lista() {
@@ -350,5 +351,37 @@ T& Lista<T>::iesimo(Nat i) {
 //Opcional !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 template <typename T>
 void Lista<T>::mostrar(std::ostream& o) {
-	// Completar
+	//Imprime la lista en el siguiente formato:
+    //lista: [elem1, elem2, ..]
+
+    //String que va a guardar la lista para mostrarla al final
+    std::string listaParaMostrar;
+
+    //Conversor para armar la lista
+    std::ostringstream conversor;
+
+    conversor << "[";
+
+    //Recorro toda la lista mientras armo el string para mostrar
+    for(Nodo* nodoActual = _principio; nodoActual != nullptr; nodoActual = nodoActual->siguiente){
+
+        T valor = nodoActual->valor;
+
+        conversor << valor;
+
+        //Si el que sigue es nulo, es el ultimo y no hace falta separar
+        //con comas
+        if(!(nodoActual->siguiente == nullptr)){
+            conversor << ", ";
+        }
+    }
+
+    conversor << "]";
+
+    listaParaMostrar = conversor.str();
+
+    conversor.str("");
+    conversor.clear();
+
+    o << listaParaMostrar << std::endl;
 }
