@@ -16,12 +16,7 @@ TEST(lista_test, test_agregar_un_elemento_adelante) {
     Lista<int> l;
     l.agregarAdelante(42);
 
-    //std::cout << "VALOR DEL primer elem de L: " << l.iesimo(0) << std::endl;
-
     EXPECT_EQ(l.longitud(), 1);
-
-    //std::cout << "SOBREVIVI HASTA ACA" << std::endl;
-
     EXPECT_EQ(l.iesimo(0), 42);
 }
 
